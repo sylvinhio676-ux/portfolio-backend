@@ -47,9 +47,6 @@ class CloudinaryService
         $result = $this->upload($file->getRealPath(), [
             'public_id'     => $publicId,
             'resource_type' => 'image',
-            'quality'       => 'auto',
-            'fetch_format'  => 'auto',
-            'overwrite'     => false,
         ]);
 
         return [
@@ -72,7 +69,6 @@ class CloudinaryService
         $result = $this->upload($file->getRealPath(), [
             'public_id'     => $publicId,
             'resource_type' => 'raw',
-            'overwrite'     => false,
         ]);
 
         return [
@@ -140,7 +136,8 @@ class CloudinaryService
      */
     private function generateSignature(string $publicId, string $resourceType, int $timestamp): string
     {
-        return sha1("public_id={$publicId}&resource_type={$resourceType}&timestamp={$timestamp}{$this->apiSecret}");
+        // resource_type est dans l'URL (pas un paramètre signé par Cloudinary).
+        return sha1("public_id={$publicId}&timestamp={$timestamp}{$this->apiSecret}");
     }
 
     /**
