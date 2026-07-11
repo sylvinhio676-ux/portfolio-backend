@@ -1,0 +1,61 @@
+# Blueprint Render — provisionne la base PostgreSQL + le service web Laravel.
+# Déploiement : Render Dashboard → New + → Blueprint → sélectionne ce dépôt.
+# Les variables avec `sync: false` sont à renseigner manuellement dans le dashboard.
+
+databases:
+  - name: portfolio-db
+    plan: free
+    databaseName: portfolio
+    user: portfolio
+
+services:
+  - type: web
+    name: portfolio-backend
+    runtime: docker
+    plan: free
+    healthCheckPath: /up
+    envVars:
+      - key: APP_NAME
+        value: PortfolioOS
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      # Générer en local : php artisan key:generate --show  → coller la valeur (base64:...)
+      - key: APP_KEY
+        sync: false
+      # URL publique du service (https://portfolio-backend-xxxx.onrender.com)
+      - key: APP_URL
+        sync: false
+
+      # --- Base de données (injectée automatiquement depuis portfolio-db) ---
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        fromDatabase:
+          name: portfolio-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: portfolio-db
+          property: port
+      - key: DB_DATABASE
+        fromDatabase:
+          name: portfolio-db
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: portfolio-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: portfolio-db
+          property: password
+
+      # --- Services externes (à renseigner manuellement) ---
+      - key: CLOUDINARY_URL
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
+      - key: SANCTUM_STATEFUL_DOMAINS
+        sync: false
