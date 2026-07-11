@@ -1,0 +1,12 @@
+# Fichiers exclus du contexte de build Docker.
+/vendor
+/node_modules
+/.git
+/.github
+.env
+.env.*
+!.env.example
+/storage/logs/*
+/tests
+/.idea
+/.vscode
