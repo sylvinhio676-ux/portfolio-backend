@@ -14,7 +14,7 @@ class UpdateProjectRequest extends FormRequest
 
     public function rules(): array
     {
-        $projectId = $this->route('project');
+        $projectId = $this->route('id');
 
         return [
             'slug'         => ['sometimes', 'required', 'string', 'max:255', 'regex:/^[a-z0-9-]+$/', Rule::unique('projects', 'slug')->ignore($projectId)],
