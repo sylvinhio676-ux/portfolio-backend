@@ -26,6 +26,8 @@ class DatabaseSeeder extends Seeder
             ProjectSeeder::class,
             ProjectImageSeeder::class,
             ProjectTechnologySeeder::class,
+            EducationSeeder::class,
+            CertificationSeeder::class,
         ]);
     }
 }

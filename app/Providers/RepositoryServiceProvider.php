@@ -79,6 +79,26 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Repositories\Contracts\WorkflowStepRepositoryInterface::class,
             \App\Repositories\Eloquent\WorkflowStepRepository::class
         );
+
+        $this->app->bind(
+            \App\Repositories\Contracts\CertificationRepositoryInterface::class,
+            \App\Repositories\Eloquent\CertificationRepository::class
+        );
+
+        $this->app->bind(
+            \App\Repositories\Contracts\CertificationDocumentRepositoryInterface::class,
+            \App\Repositories\Eloquent\CertificationDocumentRepository::class
+        );
+
+        $this->app->bind(
+            \App\Repositories\Contracts\EducationRepositoryInterface::class,
+            \App\Repositories\Eloquent\EducationRepository::class
+        );
+
+        $this->app->bind(
+            \App\Repositories\Contracts\EducationDocumentRepositoryInterface::class,
+            \App\Repositories\Eloquent\EducationDocumentRepository::class
+        );
     }
 
     /**

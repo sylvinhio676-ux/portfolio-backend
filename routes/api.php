@@ -12,6 +12,8 @@ use App\Http\Controllers\Public\ExperienceController;
 use App\Http\Controllers\Public\ProjectController;
 use App\Http\Controllers\Public\ContactController;
 use App\Http\Controllers\Public\WorkflowStepController;
+use App\Http\Controllers\Public\EducationController;
+use App\Http\Controllers\Public\CertificationController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 
@@ -27,6 +29,8 @@ use App\Http\Controllers\Admin\AboutController as AdminAboutController;
 use App\Http\Controllers\Admin\SeoController as AdminSeoController;
 use App\Http\Controllers\Admin\WorkflowStepController as AdminWorkflowStepController;
 use App\Http\Controllers\Admin\MediaController;
+use App\Http\Controllers\Admin\EducationController as AdminEducationController;
+use App\Http\Controllers\Admin\CertificationController as AdminCertificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -78,6 +82,14 @@ Route::post('/contact', [ContactController::class, 'send']);
 // Étapes de la méthode de travail (section About)
 Route::get('/workflow-steps', [WorkflowStepController::class, 'index']);
 
+// Formations
+Route::get('/education', [EducationController::class, 'index']);
+Route::get('/education/{id}', [EducationController::class, 'show']);
+
+// Certifications
+Route::get('/certifications', [CertificationController::class, 'index']);
+Route::get('/certifications/{id}', [CertificationController::class, 'show']);
+
 /**
  * +--------------------------------------------------------------------------  
  *  Routes Admin (avec authentification)                                      |
@@ -104,7 +116,26 @@ Route::prefix('admin')->group(function () {
         Route::delete('/projects/{id}', [AdminProjectController::class, 'destroy']);
         Route::post('/projects/{id}/images', [AdminProjectController::class, 'addImages']);
         Route::delete('/projects/{id}/images/{imageId}', [AdminProjectController::class, 'deleteImage']);
-        
+
+        // Formations
+        Route::get('/education', [AdminEducationController::class, 'index']);
+        Route::post('/education', [AdminEducationController::class, 'store']);
+        Route::put('/education/{id}', [AdminEducationController::class, 'update']);
+        Route::delete('/education/{id}', [AdminEducationController::class, 'destroy']);
+        Route::post('/education/{id}/images', [AdminEducationController::class, 'addImage']);
+        Route::delete('/education/{id}/images/{imageId}', [AdminEducationController::class, 'deleteImage']);
+        Route::post('/education/{id}/documents', [AdminEducationController::class, 'addDocument']);
+        Route::delete('/education/{id}/documents/{documentId}', [AdminEducationController::class, 'deleteDocument']);
+
+        // Certifications
+        Route::get('/certifications', [AdminCertificationController::class, 'index']);
+        Route::post('/certifications', [AdminCertificationController::class, 'store']);
+        Route::put('/certifications/{id}', [AdminCertificationController::class, 'update']);
+        Route::delete('/certifications/{id}', [AdminCertificationController::class, 'destroy']);
+        Route::post('/certifications/{id}/badge', [AdminCertificationController::class, 'uploadBadge']);
+        Route::post('/certifications/{id}/documents', [AdminCertificationController::class, 'addDocument']);
+        Route::delete('/certifications/{id}/documents/{documentId}', [AdminCertificationController::class, 'deleteDocument']);
+
         // Compétences
         Route::get('/skills', [AdminSkillController::class, 'index']);
         Route::post('/skills', [AdminSkillController::class, 'store']);
