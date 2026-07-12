@@ -30,6 +30,7 @@ class UpdateProjectRequest extends FormRequest
             'demo_url'     => ['nullable', 'string', 'url', 'max:500'],
             'video_url'    => ['nullable', 'string', 'url', 'max:500'],
             'cover_image'  => ['nullable', 'string', 'max:500'],
+            'category'     => ['nullable', 'in:web,mobile,api'],
             'is_featured'  => ['boolean'],
             'status'       => ['nullable', 'in:draft,published,archived'],
             'sort_order'   => ['nullable', 'integer', 'min:0'],

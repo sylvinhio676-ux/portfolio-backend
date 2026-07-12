@@ -15,6 +15,7 @@ class ProjectResource extends JsonResource
             'title'        => $this->title,
             'tagline'      => $this->tagline,
             'cover_image'  => $this->cover_image,
+            'category'     => $this->category,
             'is_featured'  => $this->is_featured,
             'status'       => $this->status,
             'sort_order'   => $this->sort_order,

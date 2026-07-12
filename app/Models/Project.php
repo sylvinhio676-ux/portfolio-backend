@@ -21,6 +21,7 @@ class Project extends Model
         'demo_url',
         'video_url',
         'cover_image',
+        'category',
         'is_featured',
         'status',
         'sort_order',

@@ -26,6 +26,7 @@ class ProjectDetailResource extends JsonResource
                 'video'  => $this->video_url,
             ],
             'cover_image'  => $this->cover_image,
+            'category'     => $this->category,
             'images'       => ProjectImageResource::collection(
                 $this->whenLoaded('images')
             ),
