@@ -17,5 +17,13 @@ if [ "${RUN_SEED}" = "true" ]; then
     php artisan db:seed --force
 fi
 
+# Seed CIBLÉ des modules Formations & Certifications (idempotent) : ne s'exécute
+# QUE si RUN_MODULES_SEED=true. Ne duplique pas les autres données. À remettre à
+# false après le premier déploiement réussi.
+if [ "${RUN_MODULES_SEED}" = "true" ]; then
+    echo ">>> RUN_MODULES_SEED=true → seeding des modules Formations & Certifications…"
+    php artisan modules:seed
+fi
+
 # Lance Apache au premier plan.
 exec apache2-foreground

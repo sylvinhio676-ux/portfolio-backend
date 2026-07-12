@@ -13,6 +13,11 @@ class EducationSeeder extends Seeder
      */
     public function run(): void
     {
+        // Idempotent : ne rien réinsérer si des formations existent déjà.
+        if (Education::count() > 0) {
+            return;
+        }
+
         // Quelques formations réalistes avec images, documents et compétences.
         $formations = [
             [

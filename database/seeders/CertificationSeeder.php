@@ -13,6 +13,11 @@ class CertificationSeeder extends Seeder
      */
     public function run(): void
     {
+        // Idempotent : ne rien réinsérer si des certifications existent déjà.
+        if (Certification::count() > 0) {
+            return;
+        }
+
         $certifications = [
             [
                 'title' => 'AWS Certified Solutions Architect – Associate',
