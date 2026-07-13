@@ -68,14 +68,14 @@ class ContactService
             Nouveau message depuis le portfolio.
 
             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-            📧 Informations du contact
+            Informations du contact
             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
             Nom    : {$data['name']}
             Email  : {$data['email']}
             Sujet  : {$data['subject']}
 
             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-            📝 Message
+            Message
             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
             {$data['message']}
