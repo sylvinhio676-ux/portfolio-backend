@@ -26,6 +26,11 @@ class RepositoryServiceProvider extends ServiceProvider
         );
 
         $this->app->bind(
+            \App\Repositories\Contracts\SettingRepositoryInterface::class,
+            \App\Repositories\Eloquent\SettingRepository::class
+        );
+
+        $this->app->bind(
             \App\Repositories\Contracts\SeoSettingRepositoryInterface::class,
             \App\Repositories\Eloquent\SeoSettingRepository::class
         );

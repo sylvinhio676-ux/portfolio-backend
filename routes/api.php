@@ -31,6 +31,9 @@ use App\Http\Controllers\Admin\WorkflowStepController as AdminWorkflowStepContro
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\EducationController as AdminEducationController;
 use App\Http\Controllers\Admin\CertificationController as AdminCertificationController;
+use App\Http\Controllers\Public\SettingController;
+use App\Http\Controllers\Admin\SettingController as AdminSettingController;
+use App\Http\Controllers\Admin\AccountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +53,9 @@ Route::get('/test', function () {
 // === ROUTES PUBLIQUES (sans authentification) ===
 // À propos
 Route::get('/about', [AboutController::class, 'show']);
+
+// Paramètres globaux (publics)
+Route::get('/settings', [SettingController::class, 'show']);
 
 // SEO
 Route::get('/seo/{page}', [SeoController::class, 'show']);
@@ -190,5 +196,12 @@ Route::prefix('admin')->group(function () {
         // Médias
         Route::post('/media/upload', [MediaController::class, 'upload']);
         Route::delete('/media/delete', [MediaController::class, 'delete']);
+
+        // Paramètres globaux
+        Route::get('/settings', [AdminSettingController::class, 'show']);
+        Route::put('/settings', [AdminSettingController::class, 'update']);
+
+        // Compte administrateur
+        Route::put('/account/password', [AccountController::class, 'updatePassword']);
     });
 });
