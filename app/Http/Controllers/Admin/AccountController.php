@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Account\UpdatePasswordRequest;
 use App\Helpers\ApiResponse;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AccountController extends Controller
@@ -18,7 +19,15 @@ class AccountController extends Controller
      */
     public function updatePassword(UpdatePasswordRequest $request): JsonResponse
     {
-        $user = $request->user();
+        // Récupère l'admin authentifié via le guard sanctum : le middleware
+        // api.auth valide le token sur ce guard, pas sur le guard par défaut
+        // (d'où $request->user() qui renvoyait null).
+        /** @var \App\Models\User|null $user */
+        $user = Auth::guard('sanctum')->user();
+
+        if (!$user) {
+            return ApiResponse::error('Non authentifié', null, 401);
+        }
 
         // Vérifie que le mot de passe actuel est correct
         if (!Hash::check($request->current_password, $user->password)) {
