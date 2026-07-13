@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Setting;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Mail\Message;
@@ -16,7 +17,8 @@ class ContactService
      */
     public function send(array $data): void
     {
-        $adminEmail = config('mail.admin_email', env('MAIL_ADMIN_EMAIL'));
+        // Destinataire configuré dans les paramètres (ligne unique), sinon repli sur la config/.env
+        $adminEmail = Setting::query()->value('contact_email') ?: config('mail.admin_email', env('MAIL_ADMIN_EMAIL'));
 
         if (!$adminEmail) {
             throw new \RuntimeException('Admin email not configured');
