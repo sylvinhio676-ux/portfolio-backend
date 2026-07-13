@@ -14,12 +14,24 @@ class SettingService
     /**
      * Retourne l'enregistrement unique des paramètres.
      */
-    public function get(): ?Setting
+    public function get(): Setting
     {
         /** @var Setting|null $setting */
         $setting = $this->settingRepository->getSetting();
 
-        return $setting;
+        // Résilience : si aucune ligne n'existe (base non seedée, ex. en prod),
+        // on crée la ligne unique avec des valeurs par défaut cohérentes
+        // (mêmes réglages de base que le SettingSeeder).
+        return $setting ?? Setting::firstOrCreate([], [
+            'theme_default'   => 'dark',
+            'primary_color'   => '#00E5C3',
+            'font_heading'    => 'Space Grotesk',
+            'font_body'       => 'Inter',
+            'border_radius'   => '8px',
+            'is_available'    => true,
+            'default_robots'  => 'index,follow',
+            'sitemap_enabled' => true,
+        ]);
     }
 
     /**
